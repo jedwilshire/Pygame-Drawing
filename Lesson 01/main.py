@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Basic Game Loop')
 def update():
     pass
 def draw():
