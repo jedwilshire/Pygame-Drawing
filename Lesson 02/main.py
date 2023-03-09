@@ -15,10 +15,10 @@ def draw():
     pygame.draw.circle(screen, BLACK, (400, 400), 40)
     pygame.draw.circle(screen, WHITE, (100, 400), 40, width = 10)
     pygame.draw.ellipse(screen, GREEN, pygame.Rect(650, 150, 50, 100))
-    pygame.draw.arc(screen, NAVYBLUE,
+    pygame.draw.arc(screen, NAVY,
                     pygame.Rect(650, 500, 100, 100),
-                    math.radians(0), math.radians(120),
-                    width = 10)
+                    math.radians(0), math.radians(90),
+                    width = 1)
     pygame.draw.line(screen, BLACK, (140, 100), (500, 200),
                      width = 4)
     pygame.draw.lines(screen, BROWN, False,
@@ -27,6 +27,7 @@ def draw():
     pygame.draw.lines(screen, RED, True,
                       [(200, 580), (300, 580), (315, 500),
                        (276, 490), (250, 490)], width = 2)
+    
     write_mouse_pos()
 def write_mouse_pos():
     x, y = pygame.mouse.get_pos()
