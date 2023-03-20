@@ -30,7 +30,14 @@ def mainloop():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+            elif event.type == pygame.MOUSEMOTION:
+                onMouseMove(event.pos[0], event.pos[1])
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                onMouseDown(event.pos[0], event.pos[1])
+            elif event.type == pygame.KEYDOWN:
+                onKeyDown(event.key)
         clock.tick(FPS)
+
 
 pygame.init()
 mainloop()

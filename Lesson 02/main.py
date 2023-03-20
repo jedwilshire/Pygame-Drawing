@@ -1,10 +1,9 @@
 import pygame
-import math
 from settings import *
 from writer import *
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption('My Drawing Canvas')
-writer = Writer(screen)
+writer = Writer(screen, size = 30)
 def update():
     pass
 
@@ -14,39 +13,37 @@ def draw():
     pygame.draw.polygon(screen, BLUE, [(0, 50), (100, 50), (100, 200), (50, 200)])
     pygame.draw.circle(screen, BLACK, (400, 400), 40)
     pygame.draw.circle(screen, WHITE, (100, 400), 40, width = 10)
-    pygame.draw.ellipse(screen, GREEN, pygame.Rect(650, 150, 50, 100))
-    pygame.draw.arc(screen, NAVY,
-                    pygame.Rect(650, 500, 100, 100),
-                    math.radians(0), math.radians(90),
-                    width = 1)
     pygame.draw.line(screen, BLACK, (140, 100), (500, 200),
                      width = 4)
-    pygame.draw.lines(screen, BROWN, False,
-                      [(50, 580), (100, 580), (115, 500),
-                       (76, 490), (50, 490)], width = 5)
-    pygame.draw.lines(screen, RED, True,
-                      [(200, 580), (300, 580), (315, 500),
-                       (276, 490), (250, 490)], width = 2)
+    writer.writeText(300, 300)
     
-    write_mouse_pos()
-def write_mouse_pos():
-    x, y = pygame.mouse.get_pos()
-    writer.write(str(x) + ', ' + str(y), 750, 575)
-    
-    
-    
+def onMouseDown(x, y):
+    writer.setText('Mouse Pressed at:' + str(x) + ', ' + str(y))
+
+def onMouseMove(x, y):
+    writer.setText(str(x) + ', ' + str(y))    
+
+def onKeyDown(key):
+    writer.setText('Key: ' + pygame.key.name(key))
+
 def mainloop():
     running = True
     clock = pygame.time.Clock()
     while running:
-            update()
-            draw()
-            pygame.display.update()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                    pygame.quit()
-            clock.tick(FPS)
+        update()
+        draw()
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+            elif event.type == pygame.MOUSEMOTION:
+                onMouseMove(event.pos[0], event.pos[1])
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                onMouseDown(event.pos[0], event.pos[1])
+            elif event.type == pygame.KEYDOWN:
+                onKeyDown(event.key)
+        clock.tick(FPS)
 
 pygame.init()
 mainloop()

@@ -6,9 +6,15 @@ class Writer:
         self.font = font
         self.size = size
         self.color = color
+        self.text = ''
         self.writer = pygame.font.SysFont(self.font, self.size)
         
-    def write(self, text, x, y):
-        img = self.writer.render(text, True, self.color)
+    def writeText(self, x, y):
+        img = self.writer.render(self.text, True, self.color)
         self.screen.blit(img, (x, y))
         
+    def setText(self, text):
+        self.text = text
+    
+    def getText(self):
+        return self.text
