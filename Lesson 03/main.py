@@ -1,30 +1,44 @@
 import pygame
 from settings import *
 from writer import *
+# Global Variables
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+myGroup = pygame.sprite.Group()
+
+# make sprite not in a group
+# mySprite = pygame.sprite.Sprite()
+
+# make sprite in a group
+mySprite = pygame.sprite.Sprite(myGroup)
+
 pygame.display.set_caption(TITLE)
-writer = Writer(screen, size = 30)
+
+def createSprite():
+    mySprite.image = pygame.Surface((50, 50))
+    mySprite.image.fill(MAROON)
+    # mySprite.rect = mySprite.image.get_rect()
+    
+    # you can make your own rect as well
+    mySprite.rect = pygame.Rect(100, 100, 50, 50)
+    
 def update():
-    pass
+    mySprite.rect.x += 1
 
 def draw():
     screen.fill(CYAN)
-    pygame.draw.rect(screen, RED, pygame.Rect(200, 200, 100, 100))
-    pygame.draw.polygon(screen, BLUE, [(0, 50), (100, 50), (100, 200), (50, 200)])
-    pygame.draw.circle(screen, BLACK, (400, 400), 40)
-    pygame.draw.circle(screen, WHITE, (100, 400), 40, width = 10)
-    pygame.draw.line(screen, BLACK, (140, 100), (500, 200),
-                     width = 4)
-    writer.writeText(300, 300)
+    # if not in a sprite group use .blit
+    # screen.blit(mySprite.image, mySprite.rect)
+    myGroup.draw(screen)
     pygame.display.update()
+
 def onMouseDown(x, y):
-    writer.setText('Mouse Pressed at:' + str(x) + ', ' + str(y))
+    pass
 
 def onMouseMove(x, y):
-    writer.setText(str(x) + ', ' + str(y))    
+    pass   
 
 def onKeyDown(key):
-    writer.setText('Key: ' + pygame.key.name(key))
+    pass
 
 def mainloop():
     running = True
@@ -43,6 +57,6 @@ def mainloop():
             elif event.type == pygame.KEYDOWN:
                 onKeyDown(event.key)
         clock.tick(FPS)
-
+createSprite()
 pygame.init()
 mainloop()
