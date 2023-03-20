@@ -1,0 +1,5 @@
+from colors import *
+FPS = 30
+WIDTH = 800
+HEIGHT = 600
+TITLE = 'INTRO TO SPRITES'
